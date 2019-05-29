@@ -1,0 +1,17 @@
+image: manwar/aquila
+
+build:
+  stage: build
+  before_script:
+    - apt update && apt -y install make texinfo xz-utils
+  script:
+    - export PATH=$PATH:/opt/aquila/bin
+    - export TRAVIS_BUILD_DIR=$(pwd)
+    - ./configure --prefix=/usr --target=i686-aquila
+    - make -j $(nproc) all
+    - mkdir -p destdir
+    - make DESTDIR=destdir install
+    - tar cJf aquila-newlib-3.0.0.txz destdir/*
+  artifacts:
+    paths:
+      - aquila-newlib-3.0.0.txz
