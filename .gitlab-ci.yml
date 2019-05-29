@@ -6,6 +6,8 @@ build:
     - apt update && apt -y install make texinfo xz-utils
   script:
     - export PATH=$PATH:/opt/aquila/bin
+    - echo $PATH
+    - which i686-aquila-gcc
     - export TRAVIS_BUILD_DIR=$(pwd)
     - ./configure --prefix=/usr --target=i686-aquila
     - make -j $(nproc) all
